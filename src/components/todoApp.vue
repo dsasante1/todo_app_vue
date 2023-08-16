@@ -50,6 +50,24 @@ function addTask(){
     
 <style>
 
+h1, input, label{
+    padding-left: 70px;
+}
+
+button{
+    margin-left: 220px;
+
+}
+
+p{
+    margin-left: 180px;
+}
+
+li{
+    margin-left: 40px;
+}
+
+
 input{
     margin: 30px;
     height: 30px;
