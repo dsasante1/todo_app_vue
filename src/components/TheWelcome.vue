@@ -1,86 +1,148 @@
 <script setup>
-import WelcomeItem from './WelcomeItem.vue'
-import DocumentationIcon from './icons/IconDocumentation.vue'
-import ToolingIcon from './icons/IconTooling.vue'
-import EcosystemIcon from './icons/IconEcosystem.vue'
-import CommunityIcon from './icons/IconCommunity.vue'
-import SupportIcon from './icons/IconSupport.vue'
-</script>
+import { ref } from 'vue';
+
+const task = ref("")
+
+const todo = ref([])
+
+const date = ref(new Date())
+
+
+function addTask(){
+    if (task.value !== ""){
+    todo.value.push(task.value)
+    task.value = ""
+    }
+
+}
+
+
+const taskIndex = ref(0)
+
+
+function removeTask(deleteTask){
+    
+    taskIndex.value = todo.value.indexOf(deleteTask)
+
+    todo.value.splice(taskIndex.value, 1)
+
+   
+
+}
+
+
+
+</script> 
 
 <template>
-  <WelcomeItem>
-    <template #icon>
-      <DocumentationIcon />
+
+    <div class="todo">
+        <div class="addTodo">
+            <input type="text" v-model="task" placeholder="add task"/>
+
+        </div>
+        
+
+    
+   
+    <br>
+    <button id="submit" type="submit" @click="addTask">Add Task</button>  
+
+    <br>
+    <div id="taskItems" v-if="todo.length >= 1">
+        <h1>Task List</h1>
+    
+        <span v-for="(index, value) of todo" :key="value">
+            <span id="cardItem">
+            <img id="taskLogo" src="@/assets/task.svg" alt="task icon"> 
+            <span id="tasks">{{index}}</span>
+            
+            <span id="taskDate">{{ date.toGMTString() }}</span>
+           
+            <button @click="removeTask(index)">Delete</button>
+
+            </span>
+         
+
+        </span>
+       
+  
+    </div>
+    <div v-else>
+        <p>There are no tasks. Add a task</p>
+    </div>
+
+    </div>
+
+
+
+    
     </template>
-    <template #heading>Documentation</template>
+    
+<style>
 
-    Vue’s
-    <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
-    provides you with all information you need to get started.
-  </WelcomeItem>
 
-  <WelcomeItem>
-    <template #icon>
-      <ToolingIcon />
-    </template>
-    <template #heading>Tooling</template>
+.todo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
 
-    This project is served and bundled with
-    <a href="https://vitejs.dev/guide/features.html" target="_blank" rel="noopener">Vite</a>. The
-    recommended IDE setup is
-    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a> +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank" rel="noopener">Volar</a>. If
-    you need to test your components and web pages, check out
-    <a href="https://www.cypress.io/" target="_blank" rel="noopener">Cypress</a> and
-    <a href="https://on.cypress.io/component" target="_blank">Cypress Component Testing</a>.
+.addTodo{
+    padding: 20px;
+}
 
-    <br />
+input{
 
-    More instructions are available in <code>README.md</code>.
-  </WelcomeItem>
+    height: 40px;
+    width: 400px;
+    border: solid 2px;
+    border-radius: 10px;
+    text-align: center;
+}
 
-  <WelcomeItem>
-    <template #icon>
-      <EcosystemIcon />
-    </template>
-    <template #heading>Ecosystem</template>
+button{
+    border: solid 2px;
+    border-radius: 10px;
+    height: 40px;
+    width: 100px;
+}
 
-    Get official tools and libraries for your project:
-    <a href="https://pinia.vuejs.org/" target="_blank" rel="noopener">Pinia</a>,
-    <a href="https://router.vuejs.org/" target="_blank" rel="noopener">Vue Router</a>,
-    <a href="https://test-utils.vuejs.org/" target="_blank" rel="noopener">Vue Test Utils</a>, and
-    <a href="https://github.com/vuejs/devtools" target="_blank" rel="noopener">Vue Dev Tools</a>. If
-    you need more resources, we suggest paying
-    <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">Awesome Vue</a>
-    a visit.
-  </WelcomeItem>
+#taskItems{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;   
+}
 
-  <WelcomeItem>
-    <template #icon>
-      <CommunityIcon />
-    </template>
-    <template #heading>Community</template>
+#taskLogo{
+    width: 25px;
+    height: 30px;
+}
 
-    Got stuck? Ask your question on
-    <a href="https://chat.vuejs.org" target="_blank" rel="noopener">Vue Land</a>, our official
-    Discord server, or
-    <a href="https://stackoverflow.com/questions/tagged/vue.js" target="_blank" rel="noopener"
-      >StackOverflow</a
-    >. You should also subscribe to
-    <a href="https://news.vuejs.org" target="_blank" rel="noopener">our mailing list</a> and follow
-    the official
-    <a href="https://twitter.com/vuejs" target="_blank" rel="noopener">@vuejs</a>
-    twitter account for latest news in the Vue world.
-  </WelcomeItem>
+#cardItem{
+    
+    display: flex;
+    flex-direction: row;
 
-  <WelcomeItem>
-    <template #icon>
-      <SupportIcon />
-    </template>
-    <template #heading>Support Vue</template>
+    gap: 30px;
+}
 
-    As an independent project, Vue relies on community backing for its sustainability. You can help
-    us by
-    <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
-  </WelcomeItem>
-</template>
+#tasks{
+    font-size: large;
+    width: 100px;
+    word-wrap: normal;
+    word-break: break-all;
+ 
+}
+
+
+#taskDate{
+    font-size: large;
+    width: 500px;
+    text-align: center;
+}
+
+
+</style>
