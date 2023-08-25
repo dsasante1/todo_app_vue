@@ -1,15 +1,12 @@
 
 <script setup>
 
-
 import { useTodoStore } from '@/stores/todo'
 import TodoCards from './TodoCards.vue'
 
 
 const store = useTodoStore ()
-
-
-const {todoContainer} = store 
+const {todoContainer, numberOfCompletedTasks, numberOfPendingTasks } = store 
 
 
 
@@ -18,8 +15,8 @@ const {todoContainer} = store
 <template>
     <div class="summary">
         <span>{{todoContainer.length}} Tasks Added</span> |
-        <span>{{todoContainer.length}} Tasks Completed</span> |
-        <span>{{todoContainer.length}} Tasks Pending</span> 
+        <span>{{numberOfCompletedTasks}} Tasks Completed</span> |
+        <span>{{numberOfPendingTasks}} Tasks Pending</span> 
     </div>
     
   

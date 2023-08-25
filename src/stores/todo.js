@@ -1,4 +1,4 @@
-import { ref} from 'vue'
+import { ref, computed} from 'vue'
 import { defineStore } from 'pinia'
 import { todoData } from '../data/data.js';
 
@@ -92,9 +92,52 @@ export const useTodoStore = defineStore('todo', () => {
 
 
 
+  const completedTasks = ref(0);
+  const pendingTasks = ref(0);
+
+
+  const numberOfCompletedTasks = computed(
+      function getDone(){
+        for(let task in todoContainer){
+          if (task.completed === true){
+                  completedTasks.value += 1
+          }  
+      }
+  return completedTasks.value
+   }
+  )
+
+
+  const numberOfPendingTasks = computed(
+    function getDone(){
+      for(let task in todoContainer){
+        if (task.completed === false){
+                pendingTasks.value += 1
+        }  
+    }
+  return pendingTasks.value
+ }
+)
+
+
+
+
+
+
+
+
+for(let task in todoContainer){
+    if (task.completed === true){
+            completedTasks.value += 1
+    }else{
+        pendingTasks.value += 1
+    }
+}
+
+
 
   return {
-    editTask, newTask,
+    editTask, newTask, numberOfPendingTasks, numberOfCompletedTasks ,
     setCompletedDone, setCompletedPending,
     changePositionUp, changePositionDown,
     task, todoContainer, deletedTodoContainer,
