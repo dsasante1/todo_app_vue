@@ -9,10 +9,9 @@ import { useTodoStore } from '@/stores/todo'
 const store = useTodoStore ()
 
 
-const { task, todoContainer, addTask} = store 
+const {todoContainer, addTask} = store 
 
 
-console.log(task)
 
 
 // const task = ref("")
@@ -54,7 +53,7 @@ console.log(task)
 
 
         <div class="addTodo">
-            <input type="text" v-model="task" placeholder="add task..."/>
+            <input type="text" v-model="store.task" placeholder="add task..."/>
 
         </div>
         
