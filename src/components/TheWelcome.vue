@@ -1,34 +1,48 @@
 <script setup>
-import { ref } from 'vue';
-
-const task = ref("")
-
-const todo = ref([])
-
-const date = ref(new Date())
+// import { ref } from 'vue';
+import TodoCards from './TodoCards.vue'
 
 
-function addTask(){
-    if (task.value !== ""){
-    todo.value.push(task.value)
-    task.value = ""
-    }
-
-}
+import { useTodoStore } from '@/stores/todo'
 
 
-const taskIndex = ref(0)
+const store = useTodoStore ()
 
 
-function removeTask(deleteTask){
+const { task, todoContainer, addTask} = store 
+
+
+console.log(task)
+
+
+// const task = ref("")
+
+// const todo = ref([])
+
+// const date = ref(new Date())
+
+
+// function addTask(){
+//     if (task.value !== ""){
+//     todo.value.push(task.value)
+//     task.value = ""
+//     }
+
+// }
+
+
+// const taskIndex = ref(0)
+
+
+// function removeTask(deleteTask){
     
-    taskIndex.value = todo.value.indexOf(deleteTask)
+//     taskIndex.value = todo.value.indexOf(deleteTask)
 
-    todo.value.splice(taskIndex.value, 1)
+//     todo.value.splice(taskIndex.value, 1)
 
    
 
-}
+// }
 
 
 
@@ -37,19 +51,19 @@ function removeTask(deleteTask){
 <template>
 
     <div class="todo">
+
+
         <div class="addTodo">
-            <input type="text" v-model="task" placeholder="add task"/>
+            <input type="text" v-model="task" placeholder="add task..."/>
 
         </div>
         
-
-    
    
     <br>
-    <button id="submit" type="submit" @click="addTask">Add Task</button>  
+    <button id="Add Task"  @click="addTask">Add Task</button>  
 
     <br>
-    <div id="taskItems" v-if="todo.length >= 1">
+    <!-- <div id="taskItems" v-if="todo.length >= 1">
         <h1>Task List</h1>
     
         <span v-for="(index, value) of todo" :key="value">
@@ -68,9 +82,18 @@ function removeTask(deleteTask){
        
   
     </div>
+
     <div v-else>
         <p>There are no tasks. Add a task</p>
+    </div> -->
+
+
+    <div v-for="(index, doTask) in todoContainer" :key="doTask">
+    
+        <TodoCards :todoData="index"/>
+
     </div>
+
 
     </div>
 
