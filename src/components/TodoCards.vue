@@ -1,6 +1,6 @@
 <script setup>
 
-defineProps(['todoData']);
+defineProps(['todoData', 'index' ]);
 
 import { useTodoStore } from '@/stores/todo'
 

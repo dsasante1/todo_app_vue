@@ -86,12 +86,21 @@ const {todoContainer, addTask} = store
         <p>There are no tasks. Add a task</p>
     </div> -->
 
+    <div id="taskItems" v-if="todoContainer.length >= 1">
 
-    <div v-for="(index, doTask) in todoContainer" :key="doTask">
+    <div v-for="(doTask, index) in todoContainer" :key="index">
     
-        <TodoCards :todoData="index"/>
+        <TodoCards :todoData="doTask" :index="index"/>
 
     </div>
+
+    
+    </div>
+
+    <div v-else>
+        <p>There are no tasks.  Add a task</p>
+    </div>
+
 
 
     </div>

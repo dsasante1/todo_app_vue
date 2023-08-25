@@ -10,35 +10,32 @@ export const useTodoStore = defineStore('todo', () => {
 
   const todoContainer = ref(todoData)
 
-  const newContainer = ref([...todoContainer.value])
 
   const deletedTodoContainer = ref([])
+
+  const date = ref(new Date())
+
 
   const newTask = ref({})
 
 
  
-
+    // add new task
 
   function addTask(){
 
     if(task.value !== ""){
 
       newTask.value = { 
-      id: todoContainer.value.length + 1,
+      id: todoContainer.value.length,
       task: task.value,
-      time: "now",
+      time: date.value.toGMTString(),   //
       position: todoContainer.value.length + 1,
-      completed: false
+      completed: true
 
     } 
       
       todoContainer.value.push(newTask.value)
-
-
-      console.log(todoContainer.value)
-
-      newContainer.value.push(newTask.value)
 
       task.value = ""
     }
@@ -47,15 +44,9 @@ export const useTodoStore = defineStore('todo', () => {
   }
 
 
+   function deleteTask(removeTask){
 
-
-  const taskIndex = ref(0)
-
-  function deleteTask(removeTask){
-    
-    taskIndex.value = todoContainer .value.indexOf(removeTask)
-
-    todoContainer .value.splice(removeTask.value, 1)
+    todoContainer.value.splice(removeTask, 1)
 
     deletedTodoContainer.value.push(task.value)
 
